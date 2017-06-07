@@ -10,15 +10,10 @@ var crypto = require('crypto'),
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', {
-    'data': false,
-    'err': false
-  });
+  renderIndex(res, null, null);
 });
 
 router.post('/', function(req, res, next) {
-  var data;
-
   if (req.body.name && req.body.name != '' && req.body.secret && req.body.secret != '' && req.body.password && req.body.password != '') {
     saveMessage(req.body.name, req.body.secret, req.body.password, (result, err) => {
       if (err) {
@@ -30,7 +25,7 @@ router.post('/', function(req, res, next) {
       }
     });
   } else {
-    var data = getMessage(req.body.name, req.body.password, (result, err) => {
+    getMessage(req.body.name, req.body.password, (result, err) => {
       if (err) {
         renderIndex(res, null, err);
       } else if (result) {
@@ -61,17 +56,17 @@ function getMessage(name, password, callback) {
 
     result
       .then(data => {
-        console.log(data);
-
         if (data) {
           data.secret = decrypt(data.secret);
           callback(data);
+        } else {
+          callback(null, 'You entered a wrong name or password.');
         }
-
-        callback(null, 'You entered a wrong name or password.');
       })
       .fail(err => {
         callback(null, err.message);
+
+        handleError(req, res, 500, err);
       });
   }
 }
@@ -82,8 +77,6 @@ function saveMessage(name, secret, password, callback) {
     'secret': encrypt(secret),
     'password': password
   };
-
-  console.log(data);
 
   var message = new Message(data);
 
