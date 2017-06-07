@@ -1,0 +1,23 @@
+{
+  "name": "sec2bcrypt",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "async": "*",
+    "bcrypt": "^1.0.2",
+    "body-parser": "~1.16.0",
+    "cookie-parser": "~1.4.3",
+    "crypto": "0.0.3",
+    "debug": "~2.6.0",
+    "ejs": "~2.5.5",
+    "express": "~4.14.1",
+    "mongoose": "^4.10.5",
+    "morgan": "~1.7.0",
+    "openpgp": "^2.5.4",
+    "q": "^1.4.1",
+    "serve-favicon": "~2.3.2"
+  }
+}
