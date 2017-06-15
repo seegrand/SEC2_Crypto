@@ -2,6 +2,7 @@
 Small programming project to showcase awesome encrypting skills
 
 ## Used Frameworks
+- NodeJS
 - Express
 - Mongoose
 - Crypto
